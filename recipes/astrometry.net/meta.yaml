@@ -1,0 +1,61 @@
+{% set name = "astrometry.net" %}
+{% set version = "0.72" %}
+{% set sha256 = "c9f3c2c70847d8ac835f4eb3cfccdcfe938ad8762acea7dd18acbf84c7e97cb6" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://github.com/dstndstn/astrometry.net/releases/download/{{ version }}/astrometry.net-{{ version }}.tar.gz
+  sha256: {{ sha256 }}
+
+build:
+  number: 0
+  skip: true  # [win]
+
+requirements:
+  build:
+    - cfitsio
+    - fftw
+    - python
+    - numpy
+    - jpeg
+    # if your project compiles code (such as a C extension) then add `toolchain` as a build requirement.
+  run:
+    - python
+    - numpy
+    - cfitsio
+    - fftw
+    - jpeg
+
+test:
+  # Some package might need a `test/commands` key to check CLI.
+  # List all the packages/modules that `run_test.py` imports.
+  imports:
+    - simplejson
+    - simplejson.tests
+
+about:
+  home: http://astrometry.net/
+  # Remember to specify the license variants for BSD, Apache, GPL, and LGLP.
+  # Prefer the short version, e.g: GPL-2.0 instead of GNU General Public License version 2.0
+  # See https://opensource.org/licenses/alphabetical
+  license: BSD-3-Clause
+  license_family: BSD
+  license_file: LICENSE
+  summary: 'Automatic recognition of astronomical images'
+  description: |
+    If you have astronomical imaging of the sky with celestial coordinates
+    you do not know—or do not trust—then Astrometry.net is for you. Input an
+    image and we will give you back astrometric calibration meta-data, plus
+    lists of known objects falling inside the field of view.
+  doc_url: http://astrometry.net/doc/
+  dev_url: https://github.com/dstndstn/astrometry.net
+
+extra:
+  recipe-maintainers:
+    - mwcraig
+    - dstndstn
+    - juliotux
